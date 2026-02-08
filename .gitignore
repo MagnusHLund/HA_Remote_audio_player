@@ -1,0 +1,13 @@
+# Build artifacts
+bin/
+
+# Go
+go.sum
+vendor/
+.env
+
+# Project-specific
+/sounds
+
+# Generated
+wire_gen.go
