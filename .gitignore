@@ -11,3 +11,9 @@ vendor/
 
 # Generated
 wire_gen.go
+
+# Audio file configuration
+configs/audio.json
+
+# Audio files
+audio/

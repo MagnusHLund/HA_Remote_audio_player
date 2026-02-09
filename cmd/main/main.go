@@ -1,10 +1,20 @@
 package main
 
+import (
+	"flag"
+	"log"
+)
+
 func main() {
-	application, err := InitializeApp()
+	configPath := flag.String("config", "configs/audio.json", "Path to sounds JSON file")
+	flag.Parse()
+
+	application, err := InitializeApp(*configPath)
 	if err != nil {
-		panic(err)
+		log.Fatalf("init failed: %v", err)
 	}
 
-	application.Run()
+	if err := application.Run(); err != nil {
+		log.Fatalf("run failed: %v", err)
+	}
 }
