@@ -1,6 +1,3 @@
-//go:build wireinject
-// +build wireinject
-
 package main
 
 import (
@@ -14,11 +11,5 @@ import (
 
 // InitializeApp creates and returns the application with all dependencies
 func InitializeApp(configPath string) (*app.App, error) {
-	wire.Build(
-		config.NewConfig,
-		audio.NewPlayer,
-		mqtt.NewClient,
-		app.NewApp,
-	)
-	return nil, nil
+ wire.Build(mqtt.ProviderSet) return &mqtt.Client{}, nil
 }

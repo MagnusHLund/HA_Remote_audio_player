@@ -5,6 +5,10 @@ import (
 
 	"github.com/faiface/beep"
 	"github.com/faiface/beep/speaker"
+	//"github.com/faiface/beep/mp3"
+	//"github.com/faiface/beep/wav"
+	//"github.com/faiface/beep/vorbis"
+	//"github.com/faiface/beep/flac"
 )
 
 // Player handles audio playback.
