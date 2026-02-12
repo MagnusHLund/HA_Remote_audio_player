@@ -16,4 +16,4 @@ wire_gen.go
 configs/audio.json
 
 # Audio files
-audio/
+/audio/
