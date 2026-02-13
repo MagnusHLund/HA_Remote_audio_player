@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/MagnusHLund/HA_Remote_audio_player/internal/config"
-	"github.com/MagnusHLund/HA_Remote_audio_player/internal/mqtt"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"github.com/google/wire"
 )
@@ -18,7 +17,7 @@ var ProviderSet = wire.NewSet(config.NewMQTTConfig,
 	NewClient,
 )
 
-func NewClient(cfg *config.MQTTConfig) *client {
+func NewClient(cfg *config.MQTTConfig) *Client {
 	opts := mqtt.NewClientOptions()
 	opts.AddBroker(cfg.Broker)
 	opts.SetClientID(cfg.ClientId)
@@ -61,5 +60,9 @@ func (c *Client) Publish(topic string, payload string) error {
 }
 
 func (c *Client) Disconnect() {
-	c.client.Disconnect()
+	if c.client == nil || !c.client.IsConnected() {
+		return
+	}
+
+	c.client.Disconnect(250)
 }

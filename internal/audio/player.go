@@ -25,3 +25,8 @@ func NewPlayer() (*Player, error) {
 
 	return &Player{sampleRate: sr}, nil
 }
+
+// SampleRate exposes the configured output sample rate.
+func (p *Player) SampleRate() beep.SampleRate {
+	return p.sampleRate
+}

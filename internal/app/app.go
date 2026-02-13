@@ -1,17 +1,25 @@
 package app
 
-import "log"
+import "github.com/google/wire"
 
-// App represents the main application
-type App struct{}
-
-// NewApp creates a new App instance
-func NewApp() *App {
-	return &App{}
+// App represents the main application.
+type App struct {
+	controller *Controller
 }
 
-// Run executes the application
+// ProviderSet wires the app-level dependencies.
+var ProviderSet = wire.NewSet(
+	NewLogger,
+	NewController,
+	NewApp,
+)
+
+// NewApp creates a new App instance.
+func NewApp(controller *Controller) *App {
+	return &App{controller: controller}
+}
+
+// Run executes the application.
 func (a *App) Run() error {
-	log.Println("Application running")
-	return nil
+	return a.controller.Run()
 }

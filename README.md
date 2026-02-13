@@ -4,8 +4,7 @@
 
 ### audio.json
 
-From the root of the project, navigate to the configs/ directory.
-Create a file called "audio.json" within that directory.
+From the root of the project, create a file called "audio.json".
 
 Now you can configure audio files to be played, using the following JSON structure:
 
@@ -31,7 +30,6 @@ MQTT_BROKER=tcp://localhost:1883
 MQTT_USERNAME=
 MQTT_PASSWORD=
 MQTT_CLIENT_ID=ha-remote-audio-player
-MQTT_TOPIC_PREFIX=ha/remote-audio
 MQTT_DEVICE_ID=ha-remote-audio-player
 MQTT_DEVICE_NAME=HA Remote Audio Player
 ```

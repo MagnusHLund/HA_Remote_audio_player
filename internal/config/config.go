@@ -1,16 +1,24 @@
 package config
 
 import (
+	"encoding/json"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 type MQTTConfig struct {
-	Broker     string
-	Username   string
-	Password   string
-	ClientId   string
-	DeviceID   string
-	DeviceName string
+	Broker      string
+	Username    string
+	Password    string
+	ClientId    string
+	DeviceID    string
+	DeviceName  string
+}
+
+type AudioConfig struct {
+	Name string
+	Path string
 }
 
 func NewMQTTConfig() *MQTTConfig {
@@ -18,7 +26,7 @@ func NewMQTTConfig() *MQTTConfig {
 }
 
 func LoadMQTTConfig() *MQTTConfig {
-	_ = godotenv.load()
+	_ = godotenv.Load()
 
 	return &MQTTConfig{
 		Broker:     getEnv("MQTT_BROKER", "tcp://localhost:1883"),
@@ -35,4 +43,22 @@ func getEnv(key string, fallback string) string {
 		return value
 	}
 	return fallback
+}
+
+func NewAudioConfig(path string) ([]AudioConfig, error) {
+	return LoadAudioConfig(path)
+}
+
+func LoadAudioConfig(path string) ([]AudioConfig, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+
+	var audioConfigs []AudioConfig
+	if err := json.Unmarshal(data, &audioConfigs); err != nil {
+		return nil, err
+	}
+
+	return audioConfigs, nil
 }
