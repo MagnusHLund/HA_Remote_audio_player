@@ -3,17 +3,18 @@ package config
 import (
 	"encoding/json"
 	"os"
+	"path/filepath"
 
 	"github.com/joho/godotenv"
 )
 
 type MQTTConfig struct {
-	Broker      string
-	Username    string
-	Password    string
-	ClientId    string
-	DeviceID    string
-	DeviceName  string
+	Broker     string
+	Username   string
+	Password   string
+	ClientId   string
+	DeviceID   string
+	DeviceName string
 }
 
 type AudioConfig struct {
@@ -23,6 +24,15 @@ type AudioConfig struct {
 
 func NewMQTTConfig() *MQTTConfig {
 	return LoadMQTTConfig()
+}
+
+func NewAudioConfigs() ([]AudioConfig, error) {
+	configPath, err := audioConfigPath()
+	if err != nil {
+		return nil, err
+	}
+
+	return LoadAudioConfig(configPath)
 }
 
 func LoadMQTTConfig() *MQTTConfig {
@@ -45,10 +55,6 @@ func getEnv(key string, fallback string) string {
 	return fallback
 }
 
-func NewAudioConfig(path string) ([]AudioConfig, error) {
-	return LoadAudioConfig(path)
-}
-
 func LoadAudioConfig(path string) ([]AudioConfig, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
@@ -61,4 +67,14 @@ func LoadAudioConfig(path string) ([]AudioConfig, error) {
 	}
 
 	return audioConfigs, nil
+}
+
+func audioConfigPath() (string, error) {
+	exePath, err := os.Executable()
+	if err != nil {
+		return "", err
+	}
+
+	exeDir := filepath.Dir(exePath)
+	return filepath.Join(exeDir, "./../audio.json"), nil
 }

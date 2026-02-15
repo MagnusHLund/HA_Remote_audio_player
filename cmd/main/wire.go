@@ -8,10 +8,10 @@ import (
 )
 
 // InitializeApp creates and returns the application with all dependencies
-func InitializeApp(configPath string) (*app.App, error) {
+func InitializeApp() (*app.App, error) {
 	logger := app.NewLogger()
 
-	audioConfigs, err := config.NewAudioConfig(configPath)
+	audioConfigs, err := config.NewAudioConfigs()
 	if err != nil {
 		return nil, err
 	}
@@ -24,7 +24,7 @@ func InitializeApp(configPath string) (*app.App, error) {
 		return nil, err
 	}
 
-	controller := app.NewController(logger, mqttClient, audioPlayer, audioConfigs)
+	controller := app.NewController(logger, mqttClient, audioPlayer, audioConfigs, mqttCfg)
 
 	return app.NewApp(controller), nil
 }

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"log"
 	"os"
 )
@@ -13,10 +12,7 @@ func main() {
 func run() int {
 	logger := log.New(os.Stderr, "", log.LstdFlags|log.LUTC)
 
-	configPath := flag.String("config", "audio.json", "Path to sounds JSON file")
-	flag.Parse()
-
-	application, err := InitializeApp(*configPath)
+	application, err := InitializeApp()
 	if err != nil {
 		logger.Printf("init failed: %v", err)
 		return 1
