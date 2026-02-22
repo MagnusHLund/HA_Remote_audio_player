@@ -18,7 +18,7 @@ import (
 type Controller struct {
 	logger       *log.Logger
 	mqttClient   *mqtt.Client
-	audioPlayer  *audio.Player
+	audioPlayer  *audio.Playback
 	audioConfigs []config.AudioConfig
 	mqttConfig   *config.MQTTConfig
 }
@@ -27,7 +27,7 @@ type Controller struct {
 func NewController(
 	logger *log.Logger,
 	mqttClient *mqtt.Client,
-	audioPlayer *audio.Player,
+	audioPlayer *audio.Playback,
 	audioConfigs []config.AudioConfig,
 	mqttConfig *config.MQTTConfig,
 ) *Controller {

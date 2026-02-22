@@ -19,7 +19,7 @@ func InitializeApp() (*app.App, error) {
 	mqttCfg := config.NewMQTTConfig()
 	mqttClient := mqtt.NewClient(mqttCfg)
 
-	audioPlayer, err := audio.NewPlayer()
+	audioPlayer, err := audio.NewPlayback()
 	if err != nil {
 		return nil, err
 	}
